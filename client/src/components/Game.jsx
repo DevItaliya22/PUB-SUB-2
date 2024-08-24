@@ -50,7 +50,7 @@ function Game() {
   }, [gameid, mode]);
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-black text-white">
+    <div className="flex flex-col items-center min-h-screen text-white bg-black">
       <div className="flex justify-center gap-[30px] w-full px-10 py-4">
         <div className="bg-white text-black text-[20px] py-2 px-4 rounded hover:bg-gray-300 cursor-pointer" onClick={() => {
           navigator.clipboard.writeText(gameid);
@@ -59,13 +59,17 @@ function Game() {
         {socket && <div className="bg-white text-black text-[20px] py-2 px-4 rounded hover:bg-gray-300 cursor-pointer" onClick={() => {
           navigator.clipboard.writeText(gameid);
         }}>SOCKET ID : {socket.id}</div>}
-
-        <button
-          className="bg-white text-black py-2 px-4 rounded hover:bg-gray-300"
-          onClick={handleIncrement}
-        >
-          Increment
-        </button>
+      
+        {
+          mode === "player" 
+          && 
+          <button
+            className="px-4 py-2 text-black bg-white rounded hover:bg-gray-300"
+            onClick={handleIncrement}
+          >
+            Increment
+          </button>
+        }
 
         <button
           className="bg-red-600 text-white font-[600] py-2 px-4 rounded hover:bg-gray-300"
@@ -76,7 +80,7 @@ function Game() {
       </div>
 
       <div className="w-full font-[600] max-w-2xl border border-white mt-8">
-        <table className="w-full table-auto border-collapse border border-white">
+        <table className="w-full border border-collapse border-white table-auto">
           <thead>
             <tr>
               <th className="border text-[#ffffff] border-white px-4 py-2">Username</th>
@@ -87,9 +91,9 @@ function Game() {
           <tbody>
             {users.map((user, index) => (
               <tr key={index}>
-                <td className="border border-white px-4 py-2 text-center">{user.userId}</td>
-                <td className="border border-white px-4 py-2 text-center">{user.count}</td>
-                <td className="border border-white px-4 py-2 text-center">{user.mode}</td>
+                <td className="px-4 py-2 text-center border border-white">{user.userId}</td>
+                <td className="px-4 py-2 text-center border border-white">{user.count}</td>
+                <td className="px-4 py-2 text-center border border-white">{user.mode}</td>
               </tr>
             ))}
           </tbody>

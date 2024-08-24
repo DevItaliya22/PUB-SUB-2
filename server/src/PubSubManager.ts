@@ -57,7 +57,7 @@ export class PubSubManager {
     }
   }
 
-  public unsubscribe(gameId: string, userId: string) {
+  public unsubscribe(gameId: string, userId: string) { 
     if (!this.subscriptions.has(gameId)) {
       return 'No subscriptions found for this game';
     }
