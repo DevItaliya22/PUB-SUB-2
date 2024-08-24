@@ -51,7 +51,7 @@ export class PubSubManager {
     if (this.subscriptions.get(gameId)?.length === 1) {
       this.redisSubClient.subscribe(gameId, (userId: string) => {
         this.addCount(gameId, userId);
-        this.broadcast(gameId); 
+        this.broadcast(gameId); // this will broadcast the updated count to all users 
         this.log();
       });
     }
@@ -68,6 +68,7 @@ export class PubSubManager {
     if (this.subscriptions.get(gameId)?.length === 0) {
       this.redisSubClient.unsubscribe(gameId);
       this.subscriptions.delete(gameId);
+      // this.broadcast(gameId);
     }
   }
 
@@ -90,7 +91,7 @@ export class PubSubManager {
       })
     );
   }
-  
+
   public broadcast(gameId: string) {
     if (this.io) {
       const users = this.subscriptions.get(gameId);

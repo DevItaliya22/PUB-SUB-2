@@ -24,6 +24,7 @@ export function setupWebSocket(server: any) {
       gameID = gameId;
       socket.join(gameId); // Join the room for broadcasting
       instance.subscribe(gameId, userId, mode);
+      instance.broadcast(gameId);
       console.log(`${userId} subscribed to game ${gameId}`);
     });
 
@@ -31,6 +32,7 @@ export function setupWebSocket(server: any) {
       const { gameId, userId } = data;
       socket.leave(gameId); // Leave the room when unsubscribing
       instance.unsubscribe(gameId, userId);
+      instance.broadcast(gameId);
       console.log(`${userId} unsubscribed from game ${gameId}`);
     });
 
@@ -46,9 +48,7 @@ export function setupWebSocket(server: any) {
     });
 
     socket.on('disconnect', () => {
-      if (gameID) {
-        instance.unsubscribe(gameID, socket.id);
-      }
+      instance.unsubscribe(gameID, socket.id);
       console.log(`Client disconnected: ${socket.id}`);
     });
   });
