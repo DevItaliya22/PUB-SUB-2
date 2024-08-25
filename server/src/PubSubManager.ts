@@ -13,13 +13,12 @@ interface UserType {
 
 export class PubSubManager {
   private static instance: PubSubManager;
-  private redisPubClient: RedisClientType; // For publishing
-  private redisSubClient: RedisClientType; // For subscribing
+  private redisPubClient: RedisClientType; 
+  private redisSubClient: RedisClientType; 
   private subscriptions: Map<string, UserType[]>;
   private io: any; 
 
   private constructor() {
-    // Separate Redis clients for publishing and subscribing
     this.redisPubClient = createClient({ url: process.env.REDIS_URL });
     this.redisSubClient = createClient({ url: process.env.REDIS_URL });
 
@@ -36,7 +35,6 @@ export class PubSubManager {
     return PubSubManager.instance;
   }
 
-  // Set io for broadcasting
   public setIo(io: any) {
     this.io = io;
   }
@@ -51,7 +49,7 @@ export class PubSubManager {
     if (this.subscriptions.get(gameId)?.length === 1) {
       this.redisSubClient.subscribe(gameId, (userId: string) => {
         this.addCount(gameId, userId);
-        this.broadcast(gameId); // this will broadcast the updated count to all users 
+        this.broadcast(gameId);
         this.log();
       });
     }
@@ -68,12 +66,11 @@ export class PubSubManager {
     if (this.subscriptions.get(gameId)?.length === 0) {
       this.redisSubClient.unsubscribe(gameId);
       this.subscriptions.delete(gameId);
-      // this.broadcast(gameId);
     }
   }
 
   public publish(gameId: string, userId: string) {
-    this.redisPubClient.publish(gameId, userId); // Use the publish client here
+    this.redisPubClient.publish(gameId, userId); 
   }
 
   public addCount(gameId: string, userId: string) {
