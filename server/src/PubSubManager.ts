@@ -19,8 +19,8 @@ export class PubSubManager {
   private io: any; 
 
   private constructor() {
-    this.redisPubClient = createClient({ url: process.env.REDIS_URL });
-    this.redisSubClient = createClient({ url: process.env.REDIS_URL });
+    this.redisPubClient = createClient({ url: 'redis://redis:6379' });
+    this.redisSubClient = createClient({ url: 'redis://redis:6379' });
 
     this.redisPubClient.connect();
     this.redisSubClient.connect();

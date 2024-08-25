@@ -4,9 +4,8 @@ import { PubSubManager } from './PubSubManager';
 const instance = PubSubManager.getInstance();
 const connection = {
     port: 6379,
-    host:'localhost',
+    host:'redis',
 };
-
 
 const subscribeQueue = new Queue('subscribeQueue', { connection });
 const unsubscribeQueue = new Queue('unsubscribeQueue', { connection });
