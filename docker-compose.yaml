@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server  # Path to your server Dockerfile
+    ports:
+      - "3000:3000"  # Adjust as needed
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379  # Ensure the server uses the Redis service defined below
+
+  client:
+    build:
+      context: ./client  # Path to your client Dockerfile
+    ports:
+      - "5173:5173"  # Port for the Vite React client
+    depends_on:
+      - server  # Optional: if client depends on server being up
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+# Optional networks section to isolate your containers
+networks:
+  default:
+    driver: bridge
