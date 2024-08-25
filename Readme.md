@@ -2,6 +2,7 @@
 ## To start the whole appilcation 
 1. ## Just Do : 
     ```bash 
+    git clone [text](https://github.com/DevItaliya22/PUB-SUB-2)
     docker-compose build
     docker-compose up
     ```
