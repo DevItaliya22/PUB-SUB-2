@@ -1,4 +1,10 @@
 
+## To start the whole appilcation 
+1. ## Just Do : 
+    ```bash 
+    docker-compose build
+    docker-compose up
+    ```
 
 ## How to Start the Client
 
