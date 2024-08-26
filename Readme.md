@@ -240,17 +240,6 @@ This server application handles real-time communication for a pub-sub game appli
 - [Node.js](https://nodejs.org/) (version 18 or higher)
 - [Redis](https://redis.io/download) (running instance)
 
-### Environment Variables
-
-Create a `.env` file in the root directory with the following variables:
-
-```env
-REDIS_HOST=redis
-REDIS_PORT=6379
-PORT=3000
-NODE_ENV=development
-```
-
 ### Setup
 
 1. **Clone the repository**:
@@ -269,7 +258,10 @@ NODE_ENV=development
 3. **Start the server**:
 
    ```bash
-   npm start
+   docker run -p 6379:6379 redis
+   docker ps
+   docker exec -it redis_container_id /bin/bash
+   npm run dev   
    ```
 
    The backend server will be available at `http://localhost:3000`.

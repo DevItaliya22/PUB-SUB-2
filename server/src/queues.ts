@@ -1,10 +1,20 @@
 import {  Queue, Worker   } from 'bullmq';
 import { PubSubManager } from './PubSubManager';
+import dotenv from 'dotenv';
+import { join } from 'path';
+
+const envFile = process.env.NODE_ENV === 'production' 
+  ? '.env.production' 
+  : process.env.NODE_ENV === 'docker' 
+  ? '.env.docker' 
+  : '.env';
+
+dotenv.config({ path: join(__dirname, envFile) });
 
 const instance = PubSubManager.getInstance();
 const connection = {
     port: 6379,
-    host:'redis',
+    host: process.env.REDIS_HOST || 'localhost',
 };
 
 const subscribeQueue = new Queue('subscribeQueue', { connection });
@@ -23,7 +33,7 @@ const unsubscribeWorker = new Worker('unsubscribeQueue', async (job) => {
     instance.broadcast(gameId);
 }, { connection });
 
-const pbulishWorker = new Worker('publishQueue', async (job) => {
+const publishWorker = new Worker('publishQueue', async (job) => {
     const { gameId, userId } = job.data;
     instance.publish(gameId, userId);
 }, { connection });

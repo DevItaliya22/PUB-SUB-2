@@ -1,7 +1,14 @@
 import { createClient, RedisClientType } from 'redis';
 import dotenv from 'dotenv';
+import { join } from 'path';
 
-dotenv.config();
+const envFile = process.env.NODE_ENV === 'production' 
+  ? '.env.production' 
+  : process.env.NODE_ENV === 'docker' 
+  ? '.env.docker' 
+  : '.env';
+
+dotenv.config({ path: join(__dirname, envFile) });
 
 type Mode = 'player' | 'spectator';
 
@@ -19,8 +26,8 @@ export class PubSubManager {
   private io: any; 
 
   private constructor() {
-    this.redisPubClient = createClient({ url: 'redis://redis:6379' });
-    this.redisSubClient = createClient({ url: 'redis://redis:6379' });
+    this.redisPubClient = createClient({ url: process.env.REDIS_PUBSUB_HOST });
+    this.redisSubClient = createClient({ url: process.env.REDIS_PUBSUB_HOST });
 
     this.redisPubClient.connect();
     this.redisSubClient.connect();
