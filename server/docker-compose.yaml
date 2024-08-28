@@ -5,6 +5,7 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+
   server:
     build:
       context: .  
@@ -12,7 +13,10 @@ services:
     container_name: server
     ports:
       - "3000:3000"
-    env_file:
-      - ./.env.docker
+    environment:
+      - REDIS_PUBSUB_HOST=redis://redis:6379
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - NODE_ENV=docker
     depends_on:
       - redis

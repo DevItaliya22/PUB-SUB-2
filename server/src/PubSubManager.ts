@@ -2,13 +2,15 @@ import { createClient, RedisClientType } from 'redis';
 import dotenv from 'dotenv';
 import { join } from 'path';
 
-const envFile = process.env.NODE_ENV === 'production' 
-  ? '.env.production' 
-  : process.env.NODE_ENV === 'docker' 
-  ? '.env.docker' 
-  : '.env';
+dotenv.config();
 
-dotenv.config({ path: join(__dirname, envFile) });
+// const envFile = process.env.NODE_ENV === 'production' 
+//   ? '.env.production' 
+//   : process.env.NODE_ENV === 'docker' 
+//   ? '.env.docker' 
+//   : '.env';
+
+// dotenv.config({ path: join(__dirname, envFile) });
 
 type Mode = 'player' | 'spectator';
 

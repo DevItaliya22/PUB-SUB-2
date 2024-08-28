@@ -8,8 +8,13 @@ services:
       - "3000:3000"  # Adjust as needed
     depends_on:
       - redis
+    env_file:
+      - ./server/docker.env
     environment:
-      - REDIS_URL=redis://redis:6379  # Ensure the server uses the Redis service defined below
+      - REDIS_PUBSUB_HOST=redis://redis:6379
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - NODE_ENV=docker  # Ensure the server uses the Redis service defined below
 
   client:
     build:

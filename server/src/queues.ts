@@ -3,18 +3,16 @@ import { PubSubManager } from './PubSubManager';
 import dotenv from 'dotenv';
 import { join } from 'path';
 
-const envFile = process.env.NODE_ENV === 'production' 
-  ? '.env.production' 
-  : process.env.NODE_ENV === 'docker' 
-  ? '.env.docker' 
-  : '.env';
-
+dotenv.config();
+console.log(process.env.NODE_ENV);
+const envFile = process.env.NODE_ENV === 'docker' ? '.env.docker' : '.env';
 dotenv.config({ path: join(__dirname, envFile) });
 
 const instance = PubSubManager.getInstance();
+console.log(process.env.REDIS_HOST);
 const connection = {
     port: 6379,
-    host: process.env.REDIS_HOST || 'localhost',
+    host: process.env.REDIS_HOST || 'redis',
 };
 
 const subscribeQueue = new Queue('subscribeQueue', { connection });
