@@ -5,6 +5,25 @@ import { setupWebSocket } from './websocket';
 import dotenv from 'dotenv';
 dotenv.config();
 
+//LOAD ENV FILE LIKE THIS
+
+//FOR LOCALHOST
+// REDIS_PUBSUB_HOST=redis://localhost:6379
+// REDIS_PORT=6379
+// PORT=3000
+// REDIS_HOST=localhost
+// NODE_ENV=development
+
+
+//FOR DOCKER-COMPOSE UP 
+// REDIS_PUBSUB_HOST=redis://redis:6379
+// REDIS_PORT=6379
+// PORT=3000
+// REDIS_HOST=redis
+// NODE_ENV=development
+
+
+
 const app = express();
 const server = http.createServer(app);
 
