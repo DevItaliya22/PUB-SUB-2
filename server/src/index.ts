@@ -45,7 +45,7 @@
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
-import { setupWebSocket } from '../websocket';
+import { setupWebSocket } from './websocket';
 import dotenv from 'dotenv';
 
 dotenv.config();
