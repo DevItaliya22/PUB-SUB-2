@@ -1,16 +1,8 @@
-import { createClient, RedisClientType } from 'redis';
+import IORedis from 'ioredis';
 import dotenv from 'dotenv';
 import { join } from 'path';
 
 dotenv.config();
-
-// const envFile = process.env.NODE_ENV === 'production' 
-//   ? '.env.production' 
-//   : process.env.NODE_ENV === 'docker' 
-//   ? '.env.docker' 
-//   : '.env';
-
-// dotenv.config({ path: join(__dirname, envFile) });
 
 type Mode = 'player' | 'spectator';
 
@@ -22,19 +14,25 @@ interface UserType {
 
 export class PubSubManager {
   private static instance: PubSubManager;
-  private redisPubClient: RedisClientType; 
-  private redisSubClient: RedisClientType; 
+  private redisPubClient: IORedis; 
+  private redisSubClient: IORedis; 
   private subscriptions: Map<string, UserType[]>;
   private io: any; 
 
   private constructor() {
-    this.redisPubClient = createClient({ url: process.env.REDIS_PUBSUB_HOST });
-    this.redisSubClient = createClient({ url: process.env.REDIS_PUBSUB_HOST });
+    this.redisPubClient = new IORedis(process.env.REDIS_PUBSUB_HOST||"");
+    this.redisSubClient = new IORedis(process.env.REDIS_PUBSUB_HOST||"");
 
-    this.redisPubClient.connect();
-    this.redisSubClient.connect();
+    this.redisPubClient.on('error', (err:any) => console.error('Redis Pub Client Error', err));
+    this.redisSubClient.on('error', (err:any) => console.error('Redis Sub Client Error', err));
 
     this.subscriptions = new Map();
+
+    this.redisSubClient.on('message', (channel:string, message:string) => {
+      this.addCount(channel, message);
+      this.broadcast(channel);
+      this.log(channel);
+    });
   }
 
   public static getInstance(): PubSubManager {
@@ -56,11 +54,7 @@ export class PubSubManager {
     this.subscriptions.get(gameId)?.push(user);
 
     if (this.subscriptions.get(gameId)?.length === 1) {
-      this.redisSubClient.subscribe(gameId, (userId: string) => {
-        this.addCount(gameId, userId);
-        this.broadcast(gameId);
-        this.log();
-      });
+      this.redisSubClient.subscribe(gameId);
     }
   }
 
@@ -107,8 +101,8 @@ export class PubSubManager {
     }
   }
 
-  public log() {
-    console.log(this.subscriptions);
+  public log(gameId: string) {
+    console.log(this.subscriptions?.get(gameId));
   }
 
   public async disconnect() {

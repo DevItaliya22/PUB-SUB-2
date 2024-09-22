@@ -21,12 +21,16 @@ function Game() {
 
   const handleIncrement = () => {
     if (socket) {
+      // for(let i=0; i<10000; i++){
+        // socket.emit("publish", { gameId: gameid, userId: socket.id });
+      // }
+      // console.log("Complete");
       socket.emit("publish", { gameId: gameid, userId: socket.id });
     }
   };
 
   useEffect(() => {
-    const Socket = io("http://localhost:3000");
+    const Socket = io(import.meta.env.VITE_BACKEND_URL);
 
     Socket.on("connect", () => {
       Socket.emit("subscribe", { gameId: gameid, userId: Socket.id, mode });

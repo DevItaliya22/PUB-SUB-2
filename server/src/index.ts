@@ -22,8 +22,6 @@ dotenv.config();
 // REDIS_HOST=redis
 // NODE_ENV=development
 
-
-
 const app = express();
 const server = http.createServer(app);
 

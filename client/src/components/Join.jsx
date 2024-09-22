@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function Join() {
   const navigate = useNavigate();
-  const [gameID, setGameID] = useState("12345678");
+  const [gameID, setGameID] = useState("");
 
   const handleClick = (mode) => {
     if (gameID.length !== 8) return;
@@ -22,7 +22,7 @@ function Join() {
             value={gameID}
             type="text" 
             onChange={(e) => setGameID(e.target.value)} 
-            className="mb-4 p-3 w-80 text-center text-black rounded-lg outline-none focus:ring-2 focus:ring-gray-400" 
+            className="p-3 mb-4 text-center text-black rounded-lg outline-none w-80 focus:ring-2 focus:ring-gray-400" 
             placeholder="Enter Game ID" 
           />
           {gameID.length !== 8 && <div className='text-red-600'>Game ID should be 8 characters</div>}
