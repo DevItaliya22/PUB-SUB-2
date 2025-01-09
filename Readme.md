@@ -48,33 +48,14 @@
 3. **Start the backend server**:
 
    ```bash
-   npm start
+   docker-compose up 
+   npm run dev
    ```
 
    The backend server will be available at `http://localhost:3000`.
 
 ---
 
-## How to Start the Whole Application
-
-1. **Navigate to the root directory containing `docker-compose.yml`**:
-
-   ```bash
-   ```
-
-2. **Build and start the services using Docker Compose**:
-
-   ```bash
-   docker-compose build
-   docker-compose up
-   ```
-
-   This command builds the Docker images (if necessary) and starts all services defined in the `docker-compose.yml` file. The application will start with the backend server, Redis, and the client.
-
----
-
-Make sure Docker and Docker Compose are installed on your system to use the `docker-compose` commands.
----
 
 # Pub-Sub React Client
 
@@ -91,110 +72,6 @@ This project is a React application for a pub-sub game with real-time updates us
 - **React**: Front-end library for building the user interface.
 - **React Router**: For routing and navigation within the app.
 - **Socket.IO**: For real-time communication between the client and server.
-
-## Installation
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone <repository-url>
-   cd <project-directory>
-   ```
-
-2. **Install Dependencies**
-
-   Make sure you have [Node.js](https://nodejs.org/) installed. Then, run:
-
-   ```bash
-   npm install
-   ```
-
-## Usage
-
-1. **Development Mode**
-
-   To start the development server, run:
-
-   ```bash
-   npm run dev
-   ```
-
-   The app will be available at `http://localhost:5173`.
-
-2. **Build for Production**
-
-   To create a production build, run:
-
-   ```bash
-   npm run build
-   ```
-
-   This will generate a `dist` folder with the production assets.
-
-3. **Run the Production Build**
-
-   If you want to serve the production build locally, make sure you have `serve` installed globally:
-
-   ```bash
-   npm install -g serve
-   ```
-
-   Then run:
-
-   ```bash
-   serve -s dist -l 5173
-   ```
-
-   The app will be available at `http://localhost:5173`.
-
-## Docker Setup
-
-### **Dockerfile**
-
-Here’s how you can set up a Dockerfile for the React client:
-
-```Dockerfile
-# Use the official Node.js image as a base image
-FROM node:18-alpine
-
-# Set the working directory
-WORKDIR /app
-
-# Install global dependencies
-RUN npm install -g serve
-
-# Copy package.json and install dependencies
-COPY package.json ./
-RUN npm install
-
-# Copy the application code
-COPY . .
-
-# Build the React application
-RUN npm run build
-
-# Expose the port
-EXPOSE 5173
-
-# Serve the application
-CMD ["serve", "-s", "dist", "-l", "5173"]
-```
-
-### **Docker Compose**
-
-Create a `docker-compose.yml` file in the root directory to define and run multi-container Docker applications:
-
-```yaml
-version: '3.8'
-
-services:
-  client:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5173:5173"
-```
 
 
 ## Development Notes
@@ -239,32 +116,6 @@ This server application handles real-time communication for a pub-sub game appli
 
 - [Node.js](https://nodejs.org/) (version 18 or higher)
 - [Redis](https://redis.io/download) (running instance)
-
-### Setup
-
-1. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/DevItaliya22/PUB-SUB-2
-   cd backend
-   ```
-
-2. **Install dependencies**:
-
-   ```bash
-   npm install
-   ```
-
-3. **Start the server**:
-
-   ```bash
-   docker run -p 6379:6379 redis
-   docker ps
-   docker exec -it redis_container_id /bin/bash
-   npm run dev   
-   ```
-
-   The backend server will be available at `http://localhost:3000`.
 
 ## API Endpoints
 
