@@ -47,6 +47,7 @@ export class PubSubManager {
   }
 
   public subscribe(gameId: string, userId: string, mode: Mode) {
+    console.log('Subscribing', gameId, userId, mode);
     if (!this.subscriptions.has(gameId)) {
       this.subscriptions.set(gameId, []);
     }
@@ -59,6 +60,7 @@ export class PubSubManager {
   }
 
   public unsubscribe(gameId: string, userId: string) { 
+    console.log('Unsubscribing', gameId, userId);
     if (!this.subscriptions.has(gameId)) {
       return 'No subscriptions found for this game';
     }
@@ -73,10 +75,12 @@ export class PubSubManager {
   }
 
   public publish(gameId: string, userId: string) {
+    console.log('Publishing', gameId, userId);
     this.redisPubClient.publish(gameId, userId); 
   }
 
   public addCount(gameId: string, userId: string) {
+    console.log('Adding count', gameId, userId);
     const users = this.subscriptions.get(gameId);
     if (!users) {
       return 'No subscriptions found for this game';
@@ -93,6 +97,7 @@ export class PubSubManager {
   }
 
   public broadcast(gameId: string) {
+    
     if (this.io) {
       const users = this.subscriptions.get(gameId);
       if (users) {

@@ -31,7 +31,7 @@ function Game() {
 
   useEffect(() => {
     const Socket = io(import.meta.env.VITE_BACKEND_URL);
-
+    console.log(import.meta.env.VITE_BACKEND_URL);
     Socket.on("connect", () => {
       Socket.emit("subscribe", { gameId: gameid, userId: Socket.id, mode });
       setSocket(Socket);

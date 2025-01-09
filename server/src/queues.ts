@@ -5,9 +5,10 @@ import Redis from 'ioredis';
 
 dotenv.config();
 
+console.log('Connecting to Redis instance:', process.env.REDIS_HOST);
 const connection = new Redis(process.env.REDIS_HOST!, {
     maxRetriesPerRequest: null,
-    enableReadyCheck: false, // Optional, depending on your needs
+    enableReadyCheck: false, 
 });
 
 connection.on('connect', () => {
