@@ -1,12 +1,3 @@
-
-## To start the whole appilcation 
-1. ## Just Do : 
-    ```bash 
-    git clone https://github.com/DevItaliya22/PUB-SUB-2
-    docker-compose build
-    docker-compose up
-    ```
-
 ## How to Start the Client
 
 1. **Navigate to the client directory**:
