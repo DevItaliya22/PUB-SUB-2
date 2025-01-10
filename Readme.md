@@ -1,3 +1,8 @@
+##Architecture 
+![image](https://github.com/user-attachments/assets/fadcefd6-cb19-4dd6-a4df-e4c6d409264b)
+
+
+
 ## How to Start the Client
 
 1. **Navigate to the client directory**:
