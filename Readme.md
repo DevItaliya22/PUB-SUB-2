@@ -1,7 +1,11 @@
 ##Architecture 
 ![image](https://github.com/user-attachments/assets/fadcefd6-cb19-4dd6-a4df-e4c6d409264b)
 
+Above .mkv file is the deployed working of this project . Since this project requires atleast 3 continuos ec2 up and running from diffrent locations to test . So this is not deployed permanently due to cost.
+And the other thing was the ui is too rough and thats becuase this was built to test the backend and PUB-SUB capacity and not frontend , Anyone can easily build better ui but that doesnt matter in this particular project . In case of UI work , you can visit my Autominds project . 
+And the last thing is why am i doing such a simple +1 event (inc event ) and again thats because if its all about the data sending from one server to another so it doesnt really matter , It only would matter if the data is too large . And also +1 button can be pressed in too much ease and so we can easily compare latency between 2 clients .
 
+Future Tasks : May be implement better UI , where 2 people can draw something just like https://excalidraw.com/ or there can be a live Text or Code editor . The backend would be the same but the frontend will be little lengthy in both cases.
 
 ## How to Start the Client
 
